@@ -116,8 +116,8 @@ export function YcustomFrame(props: FrameComponentProps) {
   // }
 
 
-  const [datecomponet,setdatecomponent]=useState<Array<FrameComponentProps|String>>();
-  if(datecomponet=="")
+  // const [datecomponet,setdatecomponent]=useState<Array<FrameComponentProps|String>>();
+  // if(datecomponet=="")
   const[updateddatevalue,setupdateddatevalue]=useState(false)
 
   let commonRange = 'Last week';

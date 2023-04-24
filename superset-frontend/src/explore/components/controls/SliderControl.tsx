@@ -28,6 +28,11 @@ type SliderControlProps = ControlHeaderProps & {
   default?: number;
 };
 
+
+
+
+
+
 export default function SliderControl({
   default: defaultValue,
   name,

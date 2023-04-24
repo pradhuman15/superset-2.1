@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+// import { yCustomFrame } from './components/yCustomFrame.tsx';
+import { YcustomFrame } from './components';
 import React, { ReactNode, useState, useEffect, useMemo } from 'react';
 import {
   css,
@@ -52,7 +54,11 @@ import {
   CustomFrame,
   AdvancedFrame,
   DateLabel,
+  
 } from './components';
+
+
+
 
 const StyledRangeType = styled(Select)`
   width: 272px;
@@ -161,6 +167,7 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
   const defaultTimeFilter = useDefaultTimeFilter();
 
   const value = props.value ?? defaultTimeFilter;
+  console.log(value)
   const [actualTimeRange, setActualTimeRange] = useState<string>(value);
 
   const [show, setShow] = useState<boolean>(false);
@@ -282,14 +289,20 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
 
   const overlayContent = (
     <ContentStyleWrapper>
+
       <div className="control-label">{t('RANGE TYPE')}</div>
-      <StyledRangeType
+      <div>
+      
+        <YcustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
+      </div>
+      
+      {/* <StyledRangeType
         ariaLabel={t('RANGE TYPE')}
         options={FRAME_OPTIONS}
         value={frame}
         onChange={onChangeFrame}
-      />
-      {frame !== 'No filter' && <Divider />}
+      /> */}
+      {/* {frame !== 'No filter' && <Divider />}
       {frame === 'Common' && (
         <CommonFrame value={timeRangeValue} onChange={setTimeRangeValue} />
       )}
@@ -304,7 +317,10 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
       )}
       {frame === 'No filter' && (
         <div data-test={DATE_FILTER_TEST_KEY.noFilter} />
-      )}
+      )} */}
+      <div>
+        <p>select date format </p>
+      </div>
       <Divider />
       <div>
         <div className="section-title">{t('Actual time range')}</div>

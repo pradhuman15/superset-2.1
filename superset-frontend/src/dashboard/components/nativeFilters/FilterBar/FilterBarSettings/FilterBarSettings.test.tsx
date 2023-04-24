@@ -79,7 +79,7 @@ test('Dropdown trigger renders with FF HORIZONTAL_FILTER_BAR on', async () => {
 test('Dropdown trigger does not render with FF HORIZONTAL_FILTER_BAR off', async () => {
   // @ts-ignore
   global.featureFlags = {
-    [FeatureFlag.HORIZONTAL_FILTER_BAR]: false,
+    [FeatureFlag.HORIZONTAL_FILTER_BAR]: true,
   };
   await setup();
   expect(screen.queryByLabelText('gear')).not.toBeInTheDocument();

@@ -75,15 +75,27 @@ export type CommonRangeType =
   | 'Last week'
   | 'Last month'
   | 'Last quarter'
-  | 'Last year';
+  | 'Last year'
+  //  pradhuman_edit
+  | 'Last 14 days'
+  | 'Last 20 days'
+  | 'Last 60 days'
+  
+  
+  
+  ;
 
 export const PreviousCalendarWeek = 'previous calendar week';
 export const PreviousCalendarMonth = 'previous calendar month';
 export const PreviousCalendarYear = 'previous calendar year';
+// pradhuman_edit
+export const PreviousCalenderQuarter ='PreviousCalenderQuarter'
 export type CalendarRangeType =
   | typeof PreviousCalendarWeek
   | typeof PreviousCalendarMonth
-  | typeof PreviousCalendarYear;
+  | typeof PreviousCalendarYear
+  // pradhuman_edit
+    typeof PreviousCalenderQuarter;
 
 export type FrameComponentProps = {
   onChange: (timeRange: string) => void;

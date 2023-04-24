@@ -478,7 +478,12 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "EMBEDDABLE_CHARTS": True,
     "DRILL_TO_DETAIL": False,
     "DATAPANEL_CLOSED_BY_DEFAULT": False,
-    "HORIZONTAL_FILTER_BAR": False,
+
+
+    # pradhuman_edit
+    "HORIZONTAL_FILTER_BAR": True,
+
+    
     # The feature is off by default, and currently only supported in Presto and Postgres,
     # and Bigquery.
     # It also needs to be enabled on a per-database basis, by adding the key/value pair

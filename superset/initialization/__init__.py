@@ -229,6 +229,10 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
             "Home",
             label=__("Home"),
             href="/superset/welcome/",
+            # pradhuman_edit
+            # href="/dashboard/list/",
+
+            
             cond=lambda: bool(appbuilder.app.config["LOGO_TARGET_PATH"]),
         )
 
@@ -679,3 +683,9 @@ class SupersetIndexView(IndexView):
     @expose("/")
     def index(self) -> FlaskResponse:
         return redirect("/superset/welcome/")
+
+        
+        # pradhuman_edit
+        # return redirect("/dashboard/list/")
+
+

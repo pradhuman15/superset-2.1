@@ -29,10 +29,12 @@ import {
 
 export const FRAME_OPTIONS: SelectOptionType[] = [
   { value: 'Common', label: t('Last') },
-  { value: 'Calendar', label: t('Previous') },
+  // { value: 'Calendar', label: t('Previous') },
   { value: 'Custom', label: t('Custom') },
-  { value: 'Advanced', label: t('Advanced') },
+  // { value: 'Advanced', label: t('Advanced') },
   { value: 'No filter', label: t('No filter') },
+
+  //pradhuman_edit
 ];
 
 export const COMMON_RANGE_OPTIONS: SelectOptionType[] = [
@@ -40,7 +42,12 @@ export const COMMON_RANGE_OPTIONS: SelectOptionType[] = [
   { value: 'Last week', label: t('last week') },
   { value: 'Last month', label: t('last month') },
   { value: 'Last quarter', label: t('last quarter') },
-  { value: 'Last year', label: t('last year') },
+
+  // pradhuma_edit
+  { value: 'Last 14 days', label: t('last 14 days') },
+  { value: 'Last 20 days', label: t('last 20 days') },
+  { value: 'Last 60 days', label: t('last 60 days') },
+
 ];
 export const COMMON_RANGE_VALUES_SET = new Set(
   COMMON_RANGE_OPTIONS.map(({ value }) => value),
@@ -99,6 +106,12 @@ export const COMMON_RANGE_SET: Set<CommonRangeType> = new Set([
   'Last month',
   'Last quarter',
   'Last year',
+  // pradhuman_edit
+  'Last 14 days',
+  'Last 20 days',
+  'Last 60 days'
+
+
 ]);
 
 export const CALENDAR_RANGE_SET: Set<CalendarRangeType> = new Set([

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { t } from '@superset-ui/core';
 import { Moment } from 'moment';
@@ -39,15 +39,21 @@ import {
   CommonRangeType,
 } from 'src/explore/components/controls/DateFilterControl/types';
 
-
-
 // export function CommonFrame(props: FrameComponentProps) {
 //   let commonRange = 'Last week';
 //   if (COMMON_RANGE_SET.has(props.value as CommonRangeType)) {
 //     commonRange = props.value;
 //   } else {
 //     props.onChange(commonRange);
-//   }
+
+import {
+  CALENDAR_RANGE_OPTIONS,
+  CALENDAR_RANGE_SET,
+} from 'src/explore/components/controls/DateFilterControl/utils';
+import {
+  CalendarRangeType,
+  PreviousCalendarWeek,
+} from '../types';
 
 
 import {
@@ -98,6 +104,20 @@ import { ExplorePageState } from 'src/explore/types';
 //   );
 // }
 export function YcustomFrame(props: FrameComponentProps) {
+
+  // useEffect(() => {
+  //   if (!CALENDAR_RANGE_SET.has(props.value as CalendarRangeType)) {
+  //     props.onChange(PreviousCalendarWeek);
+  //   }
+  // }, [onChange, props.value]);
+
+  // if (!CALENDAR_RANGE_SET.has(props.value as CalendarRangeType)) {
+  //   return null;
+  // }
+
+
+  const [datecomponet,setdatecomponent]=useState<Array<FrameComponentProps|String>>();
+  if(datecomponet=="")
   const[updateddatevalue,setupdateddatevalue]=useState(false)
 
   let commonRange = 'Last week';
@@ -188,7 +208,21 @@ export function YcustomFrame(props: FrameComponentProps) {
 
   return (
     <>
-    
+    <div>
+    <div className="section-title">
+          {t('Configure Time Range: Previous...')}
+        </div>
+        <Radio.Group
+          value={props.value}
+          onChange={(e: any) => props.onChange(e.target.value)}
+        >
+          {CALENDAR_RANGE_OPTIONS.map(({ value, label }) => (
+            <Radio key={value} value={value} className="vertical-radio">
+              {label}
+            </Radio>
+          ))}
+        </Radio.Group>
+    </div>
     <div>
        <div
         className="section-title"

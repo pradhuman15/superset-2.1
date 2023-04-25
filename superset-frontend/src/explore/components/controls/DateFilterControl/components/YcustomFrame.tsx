@@ -244,6 +244,8 @@ export function YcustomFrame(props: FrameComponentProps) {
 
     <div data-test="custom-frame">
       <div className="section-title">{t('Configure custom time range')}</div>
+
+
       <Row gutter={24}>
         <Col span={12}>
           <div className="control-label">
@@ -253,13 +255,13 @@ export function YcustomFrame(props: FrameComponentProps) {
               placement="right"
             />
           </div>
-          <Select
+          {/* <Select
             ariaLabel={t('START (INCLUSIVE)')}
             options={SINCE_MODE_OPTIONS}
             value={sinceMode}
             onChange={(value: string) => onChange('sinceMode', value)}
-          />
-          {sinceMode === 'specific' && (
+          /> */}
+           
             <Row>
               <DatePicker
                 showTime
@@ -271,7 +273,7 @@ export function YcustomFrame(props: FrameComponentProps) {
                 locale={datePickerLocale}
               />
             </Row>
-          )}
+          
           {sinceMode === 'relative' && (
             <Row gutter={8}>
               <Col span={11}>
@@ -306,12 +308,12 @@ export function YcustomFrame(props: FrameComponentProps) {
               placement="right"
             />
           </div>
-          <Select
+          {/* <Select
             ariaLabel={t('END (EXCLUSIVE)')}
             options={UNTIL_MODE_OPTIONS}
             value={untilMode}
             onChange={(value: string) => onChange('untilMode', value)}
-          />
+          /> */}
           {untilMode === 'specific' && (
             <Row>
               <DatePicker

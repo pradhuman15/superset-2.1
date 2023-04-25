@@ -200,9 +200,8 @@ export const customTimeRangeEncode = (customRange: CustomRangeType): string => {
     anchorValue,
   } = { ...customRange };
   // specific : specific
-  if (SPECIFIC_MODE.includes(sinceMode) && SPECIFIC_MODE.includes(untilMode)) {
-    const since =
-      sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
+  if (true) {
+    const since = dttmToString(sinceDatetime);
     const until =
       untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
     return `${since} : ${until}`;

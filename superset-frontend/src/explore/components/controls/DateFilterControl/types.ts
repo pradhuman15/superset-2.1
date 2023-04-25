@@ -50,7 +50,8 @@ export type CustomRangeKey =
   | 'anchorMode'
   | 'anchorValue';
 
-export type DateTimeModeType = 'specific' | 'relative' | 'now' | 'today';
+// export type DateTimeModeType = 'specific' | 'relative' | 'now' | 'today';
+export type DateTimeModeType = 'specific';
 
 export type CustomRangeType = {
   sinceMode: DateTimeModeType;

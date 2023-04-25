@@ -336,7 +336,7 @@ const DropdownContainer = forwardRef(
             <Global
               styles={css`
                 .ant-popover-inner-content {
-                  max-height: ${MAX_HEIGHT}px;
+                  max-height: fit-content;
                   overflow: ${showOverflow ? 'auto' : 'visible'};
                   padding: ${theme.gridUnit * 3}px ${theme.gridUnit * 4}px;
 

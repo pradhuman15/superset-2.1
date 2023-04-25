@@ -278,7 +278,7 @@ export function YcustomFrame(props: FrameComponentProps) {
             <Row gutter={8}>
               <Col span={11}>
                 {/* Make sure sinceGrainValue looks like a positive integer */}
-                <InputNumber
+                {/* <InputNumber
                   placeholder={t('Relative quantity')}
                   value={Math.abs(sinceGrainValue)}
                   min={1}
@@ -287,15 +287,15 @@ export function YcustomFrame(props: FrameComponentProps) {
                     onGrainValue('sinceGrainValue', value || 1)
                   }
                   onStep={value => onGrainValue('sinceGrainValue', value || 1)}
-                />
+                /> */}
               </Col>
               <Col span={13}>
-                <Select
+                {/* <Select
                   ariaLabel={t('Relative period')}
                   options={SINCE_GRAIN_OPTIONS}
                   value={sinceGrain}
                   onChange={(value: string) => onChange('sinceGrain', value)}
-                />
+                /> */}
               </Col>
             </Row>
           )}
@@ -330,7 +330,7 @@ export function YcustomFrame(props: FrameComponentProps) {
           {untilMode === 'relative' && (
             <Row gutter={8}>
               <Col span={11}>
-                <InputNumber
+                {/* <InputNumber
                   placeholder={t('Relative quantity')}
                   value={untilGrainValue}
                   min={1}
@@ -339,7 +339,7 @@ export function YcustomFrame(props: FrameComponentProps) {
                     onGrainValue('untilGrainValue', value || 1)
                   }
                   onStep={value => onGrainValue('untilGrainValue', value || 1)}
-                />
+                /> */}
               </Col>
               <Col span={13}>
                 <Select

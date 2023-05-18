@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { t } from '@superset-ui/core';
 import { Moment } from 'moment';
@@ -118,25 +118,25 @@ export function YcustomFrame(props: FrameComponentProps) {
 
   // const [datecomponet,setdatecomponent]=useState<Array<FrameComponentProps|String>>();
   // if(datecomponet=="")
-  const[updateddatevalue,setupdateddatevalue]=useState(false)
+  const [updateddatevalue, setupdateddatevalue] = useState(false)
 
   let commonRange = 'Last week';
   if (COMMON_RANGE_SET.has(props.value as CommonRangeType)) {
     commonRange = props.value;
-  } else if(!updateddatevalue){
+  } else if (!updateddatevalue) {
     setupdateddatevalue(true)
-    console.log("i am here 1",updateddatevalue)
+    console.log("i am here 1", updateddatevalue)
     props.onChange(commonRange);
   }
 
   const { customRange, matchedFlag } = customTimeRangeDecode(props.value);
-  console.log(customRange,"hello",matchedFlag)
-  if (!matchedFlag && !updateddatevalue){
-    console.log("i am here 2",updateddatevalue)
+  console.log(customRange, "hello", matchedFlag)
+  if (!matchedFlag && !updateddatevalue) {
+    console.log("i am here 2", updateddatevalue)
 
     setupdateddatevalue(true)
     props.onChange(customTimeRangeEncode(customRange));
-    
+
   }
   const {
     sinceDatetime,
@@ -208,9 +208,181 @@ export function YcustomFrame(props: FrameComponentProps) {
 
   return (
     <>
-    <div>
-    <div className="section-title">
-          {t('Configure Time Range: Previous...')}
+
+
+      <div data-test="custom-frame">
+        {/* <div className="section-title">{t('Configure custom time range')}</div> */}
+
+
+        <Row gutter={24}>
+          <Col span={12}>
+            <div className="control-label">
+              {t('START (INCLUSIVE)')}{' '}
+              <InfoTooltipWithTrigger
+                tooltip={t('Start date included in time range')}
+                placement="right"
+              />
+            </div>
+            {/* <Select
+            ariaLabel={t('START (INCLUSIVE)')}
+            options={SINCE_MODE_OPTIONS}
+            value={sinceMode}
+            onChange={(value: string) => onChange('sinceMode', value)}
+          /> */}
+
+            <Row>
+              <DatePicker
+                // showTime
+                defaultValue={dttmToMoment(sinceDatetime)}
+                onChange={(datetime: Moment) =>
+                  onChange('sinceDatetime', datetime.format(MOMENT_FORMAT))
+                }
+                allowClear={false}
+                locale={datePickerLocale}
+              />
+            </Row>
+
+            {sinceMode === 'relative' && (
+              <Row gutter={8}>
+                <Col span={11}>
+                  {/* Make sure sinceGrainValue looks like a positive integer */}
+                  {/* <InputNumber
+                  placeholder={t('Relative quantity')}
+                  value={Math.abs(sinceGrainValue)}
+                  min={1}
+                  defaultValue={1}
+                  onChange={value =>
+                    onGrainValue('sinceGrainValue', value || 1)
+                  }
+                  onStep={value => onGrainValue('sinceGrainValue', value || 1)}
+                /> */}
+                </Col>
+                <Col span={13}>
+                  {/* <Select
+                  ariaLabel={t('Relative period')}
+                  options={SINCE_GRAIN_OPTIONS}
+                  value={sinceGrain}
+                  onChange={(value: string) => onChange('sinceGrain', value)}
+                /> */}
+                </Col>
+              </Row>
+            )}
+          </Col>
+          <Col span={12}>
+            <div className="control-label">
+              {t('END (EXCLUSIVE)')}{' '}
+              <InfoTooltipWithTrigger
+                tooltip={t('End date excluded from time range')}
+                placement="right"
+              />
+            </div>
+            {/* <Select
+            ariaLabel={t('END (EXCLUSIVE)')}
+            options={UNTIL_MODE_OPTIONS}
+            value={untilMode}
+            onChange={(value: string) => onChange('untilMode', value)}
+          /> */}
+            {untilMode === 'specific' && (
+              <Row>
+                <DatePicker
+                  // showTime
+                  defaultValue={dttmToMoment(untilDatetime)}
+                  onChange={(datetime: Moment) =>
+                    onChange('untilDatetime', datetime.format(MOMENT_FORMAT))
+                  }
+                  allowClear={false}
+                  locale={datePickerLocale}
+                />
+              </Row>
+            )}
+            {untilMode === 'relative' && (
+              <Row gutter={8}>
+                <Col span={11}>
+                  {/* <InputNumber
+                  placeholder={t('Relative quantity')}
+                  value={untilGrainValue}
+                  min={1}
+                  defaultValue={1}
+                  onChange={value =>
+                    onGrainValue('untilGrainValue', value || 1)
+                  }
+                  onStep={value => onGrainValue('untilGrainValue', value || 1)}
+                /> */}
+                </Col>
+                <Col span={13}>
+                  <Select
+                    ariaLabel={t('Relative period')}
+                    options={UNTIL_GRAIN_OPTIONS}
+                    value={untilGrain}
+                    onChange={(value: string) => onChange('untilGrain', value)}
+                  />
+                </Col>
+              </Row>
+            )}
+          </Col>
+        </Row>
+        {sinceMode === 'relative' && untilMode === 'relative' && (
+          <div className="control-anchor-to">
+            <div className="control-label">{t('Anchor to')}</div>
+            <Row align="middle">
+              <Col>
+                <Radio.Group
+                  onChange={onAnchorMode}
+                  defaultValue="now"
+                  value={anchorMode}
+                >
+                  <Radio key="now" value="now">
+                    {t('NOW')}
+                  </Radio>
+                  <Radio key="specific" value="specific">
+                    {t('Date/Time')}
+                  </Radio>
+                </Radio.Group>
+              </Col>
+              {anchorMode !== 'now' && (
+                <Col>
+                  <DatePicker
+                    // showTime
+                    defaultValue={dttmToMoment(anchorValue)}
+                    onChange={(datetime: Moment) =>
+                      onChange('anchorValue', datetime.format(MOMENT_FORMAT))
+                    }
+                    allowClear={false}
+                    className="control-anchor-to-datetime"
+                    locale={datePickerLocale}
+                  />
+                </Col>
+              )}
+            </Row>
+          </div>
+        )}
+      </div>
+
+
+
+      <div>
+        <div
+          className="section-title"
+          data-test={DATE_FILTER_TEST_KEY.commonFrame}
+        >
+          {/* {t('Configure Time Range: Last...')} */}
+        </div>
+        <Radio.Group
+          value={commonRange}
+          onChange={(e: any) => props.onChange(e.target.value)}
+        >
+          {COMMON_RANGE_OPTIONS.map(({ value, label }) => (
+            <Radio key={value} value={value} className="vertical-radio">
+              {label}
+            </Radio>
+          ))}
+        </Radio.Group>
+      </div>
+
+
+      <div>
+        <div className="section-title">
+          {/* {t('Configure Time Range: Previous...')} */}
         </div>
         <Radio.Group
           value={props.value}
@@ -222,175 +394,9 @@ export function YcustomFrame(props: FrameComponentProps) {
             </Radio>
           ))}
         </Radio.Group>
-    </div>
-    <div>
-       <div
-        className="section-title"
-        data-test={DATE_FILTER_TEST_KEY.commonFrame}
-      >
-        {t('Configure Time Range: Last...')}
       </div>
-      <Radio.Group
-        value={commonRange}
-        onChange={(e: any) => props.onChange(e.target.value)}
-      >
-        {COMMON_RANGE_OPTIONS.map(({ value, label }) => (
-          <Radio key={value} value={value} className="vertical-radio">
-            {label}
-          </Radio>
-        ))}
-      </Radio.Group>
-    </div>
-
-    <div data-test="custom-frame">
-      <div className="section-title">{t('Configure custom time range')}</div>
 
 
-      <Row gutter={24}>
-        <Col span={12}>
-          <div className="control-label">
-            {t('START (INCLUSIVE)')}{' '}
-            <InfoTooltipWithTrigger
-              tooltip={t('Start date included in time range')}
-              placement="right"
-            />
-          </div>
-          {/* <Select
-            ariaLabel={t('START (INCLUSIVE)')}
-            options={SINCE_MODE_OPTIONS}
-            value={sinceMode}
-            onChange={(value: string) => onChange('sinceMode', value)}
-          /> */}
-           
-            <Row>
-              <DatePicker
-                showTime
-                defaultValue={dttmToMoment(sinceDatetime)}
-                onChange={(datetime: Moment) =>
-                  onChange('sinceDatetime', datetime.format(MOMENT_FORMAT))
-                }
-                allowClear={false}
-                locale={datePickerLocale}
-              />
-            </Row>
-          
-          {sinceMode === 'relative' && (
-            <Row gutter={8}>
-              <Col span={11}>
-                {/* Make sure sinceGrainValue looks like a positive integer */}
-                {/* <InputNumber
-                  placeholder={t('Relative quantity')}
-                  value={Math.abs(sinceGrainValue)}
-                  min={1}
-                  defaultValue={1}
-                  onChange={value =>
-                    onGrainValue('sinceGrainValue', value || 1)
-                  }
-                  onStep={value => onGrainValue('sinceGrainValue', value || 1)}
-                /> */}
-              </Col>
-              <Col span={13}>
-                {/* <Select
-                  ariaLabel={t('Relative period')}
-                  options={SINCE_GRAIN_OPTIONS}
-                  value={sinceGrain}
-                  onChange={(value: string) => onChange('sinceGrain', value)}
-                /> */}
-              </Col>
-            </Row>
-          )}
-        </Col>
-        <Col span={12}>
-          <div className="control-label">
-            {t('END (EXCLUSIVE)')}{' '}
-            <InfoTooltipWithTrigger
-              tooltip={t('End date excluded from time range')}
-              placement="right"
-            />
-          </div>
-          {/* <Select
-            ariaLabel={t('END (EXCLUSIVE)')}
-            options={UNTIL_MODE_OPTIONS}
-            value={untilMode}
-            onChange={(value: string) => onChange('untilMode', value)}
-          /> */}
-          {untilMode === 'specific' && (
-            <Row>
-              <DatePicker
-                showTime
-                defaultValue={dttmToMoment(untilDatetime)}
-                onChange={(datetime: Moment) =>
-                  onChange('untilDatetime', datetime.format(MOMENT_FORMAT))
-                }
-                allowClear={false}
-                locale={datePickerLocale}
-              />
-            </Row>
-          )}
-          {untilMode === 'relative' && (
-            <Row gutter={8}>
-              <Col span={11}>
-                {/* <InputNumber
-                  placeholder={t('Relative quantity')}
-                  value={untilGrainValue}
-                  min={1}
-                  defaultValue={1}
-                  onChange={value =>
-                    onGrainValue('untilGrainValue', value || 1)
-                  }
-                  onStep={value => onGrainValue('untilGrainValue', value || 1)}
-                /> */}
-              </Col>
-              <Col span={13}>
-                <Select
-                  ariaLabel={t('Relative period')}
-                  options={UNTIL_GRAIN_OPTIONS}
-                  value={untilGrain}
-                  onChange={(value: string) => onChange('untilGrain', value)}
-                />
-              </Col>
-            </Row>
-          )}
-        </Col>
-      </Row>
-      {sinceMode === 'relative' && untilMode === 'relative' && (
-        <div className="control-anchor-to">
-          <div className="control-label">{t('Anchor to')}</div>
-          <Row align="middle">
-            <Col>
-              <Radio.Group
-                onChange={onAnchorMode}
-                defaultValue="now"
-                value={anchorMode}
-              >
-                <Radio key="now" value="now">
-                  {t('NOW')}
-                </Radio>
-                <Radio key="specific" value="specific">
-                  {t('Date/Time')}
-                </Radio>
-              </Radio.Group>
-            </Col>
-            {anchorMode !== 'now' && (
-              <Col>
-                <DatePicker
-                  showTime
-                  defaultValue={dttmToMoment(anchorValue)}
-                  onChange={(datetime: Moment) =>
-                    onChange('anchorValue', datetime.format(MOMENT_FORMAT))
-                  }
-                  allowClear={false}
-                  className="control-anchor-to-datetime"
-                  locale={datePickerLocale}
-                />
-              </Col>
-            )}
-          </Row>
-        </div>
-      )}
-    </div>
-
-
-  </>
+    </>
   );
 }

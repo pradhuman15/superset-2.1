@@ -290,7 +290,7 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
   const overlayContent = (
     <ContentStyleWrapper>
 
-      <div className="control-label">{t('RANGE TYPE')}</div>
+      {/* <div className="control-label">{t('RANGE TYPE')}</div> */}
       <div>
       
         <YcustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
